@@ -56,6 +56,25 @@ post(&srv.url("/login"))
   .end();
 ```
 
+Expectations can be chained:
+
+```rust
+let invoice: InvoiceDto = post(&url)
+  .set_header("Authorization", &token)
+  .set_header("Accept", "application/json")
+  .send_json(CreateInvoiceDto { ... })
+  .expect_status(200)
+  .expect_header("Access-Control-Allow-Origin", "*")
+  .expect_header("Access-Control-Allow-Credentials", "true")
+  .expect(|r| println!("{}", r.headers().len()))
+  .expect(|r| assert!(r.headers().len() > 2))
+  .end_json_with(|r: &InvoiceDto| {
+    assert!(r.total > 1000);
+  });
+
+process_invoice(&invoice);
+```
+
 ## API
 
 ```Rust
