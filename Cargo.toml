@@ -6,7 +6,7 @@ repository = "https://github.com/ersenal/gabira.git"
 homepage = "https://github.com/ersenal/gabira.git"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
-documentation = "http://ersenal.github.io/gabira/"
+documentation = "https://docs.rs/gabira/0.1.0/gabira/"
 description = "HTTP integration tests made easy."
 
 [dependencies]
