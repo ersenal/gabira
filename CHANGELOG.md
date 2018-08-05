@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.1.2] - 2018-08-05
+
 - Improve ergonomics of `expect_body`. It no longer requires manual `Body::from`
 
 ## [0.1.1] - 2018-08-05
@@ -23,4 +25,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - This CHANGELOG file.
 - README file.
 
-[unreleased]: https://github.com/ersenal/gabira/compare/v0.1.1...HEAD
+[unreleased]: https://github.com/ersenal/gabira/compare/v0.1.2...HEAD
