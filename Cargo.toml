@@ -16,6 +16,7 @@ actix-web = "0.7.3"
 serde = "1.0.70"
 serde_json = "1.0.24"
 serde_urlencoded = "0.5.2"
+owning_ref = "0.3.3"
 
 [dev-dependencies]
 serde_derive = "1.0.70"

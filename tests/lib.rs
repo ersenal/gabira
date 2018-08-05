@@ -1,12 +1,12 @@
 extern crate actix_web;
-extern crate gabira;
 extern crate futures;
+extern crate gabira;
 #[macro_use(Serialize, Deserialize)]
 extern crate serde_derive;
 
 use actix_web::http::Method;
 use actix_web::test::TestServer;
-use actix_web::{App, Body, HttpMessage, HttpRequest, HttpResponse, Json};
+use actix_web::{App, HttpMessage, HttpRequest, HttpResponse, Json};
 use gabira::*;
 
 #[derive(Serialize, Deserialize)]
@@ -29,8 +29,7 @@ fn setup() -> TestServer {
             token: format!("{}{}", dto.username, dto.password),
           })
         })
-      })
-      .resource("/ping", |r| r.method(Method::GET).f(|_| "pong"))
+      }).resource("/ping", |r| r.method(Method::GET).f(|_| "pong"))
       .resource("/auth", |r| {
         r.method(Method::POST).f(|req: &HttpRequest| {
           if req.headers().contains_key("Authorization") {
@@ -38,8 +37,7 @@ fn setup() -> TestServer {
           }
           HttpResponse::Unauthorized()
         })
-      })
-      .resource("/echo-header", |r| {
+      }).resource("/echo-header", |r| {
         r.method(Method::GET).f(|req: &HttpRequest| {
           let mut resp = HttpResponse::Ok();
           for (key, val) in req.headers() {
@@ -47,8 +45,7 @@ fn setup() -> TestServer {
           }
           resp
         })
-      })
-      .resource("/echo-cookie", |r| {
+      }).resource("/echo-cookie", |r| {
         r.method(Method::GET).f(|req: &HttpRequest| {
           let mut resp = HttpResponse::Ok();
           for cookie in req.cookies().unwrap().iter() {
@@ -63,16 +60,14 @@ fn setup() -> TestServer {
 #[test]
 fn expect_body() {
   let srv = setup();
-  let expect = Body::from("pong");
-  get(&srv.url("/ping")).expect_body(&expect).end();
+  get(&srv.url("/ping")).expect_body("pong").end();
 }
 
 #[test]
 #[should_panic]
 fn expect_body_panic() {
   let srv = setup();
-  let expect = Body::from("ping");
-  get(&srv.url("/ping")).expect_body(&expect).end();
+  get(&srv.url("/ping")).expect_body("ping").end();
 }
 
 #[test]
@@ -147,46 +142,37 @@ fn expect_cookie_panic() {
 #[test]
 fn expect_json() {
   let srv = setup();
-  let expect = TokenDto {
-    token: "helloworld".to_string(),
-  };
 
   post(&srv.url("/login"))
     .send_json(LoginDto {
       username: "hello".to_string(),
       password: "world".to_string(),
-    })
-    .expect_status(200)
-    .expect_json(&expect)
-    .end();
+    }).expect_status(200)
+    .expect_json(TokenDto {
+      token: "helloworld".to_string(),
+    }).end();
 
-  let expect = TokenDto {
-    token: "userpass".to_string(),
-  };
   post(&srv.url("/login"))
     .send_json(LoginDto {
       username: "user".to_string(),
       password: "pass".to_string(),
-    })
-    .expect_status(200)
-    .expect_json(&expect)
-    .end();
+    }).expect_status(200)
+    .expect_json(TokenDto {
+      token: "userpass".to_string(),
+    }).end();
 }
 
 #[test]
 #[should_panic]
 fn expect_json_panic() {
   let srv = setup();
-  let expect = TokenDto {
-    token: "hello world".to_string(),
-  };
 
   post(&srv.url("/login"))
     .send_json(LoginDto {
       username: "hello".to_string(),
       password: "world".to_string(),
-    })
-    .expect_status(200)
-    .expect_json(&expect)
-    .end();
+    }).expect_status(200)
+    .expect_json(TokenDto {
+      token: "hello world".to_string(),
+    }).end();
 }

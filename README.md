@@ -30,10 +30,9 @@ use gabira::*;
 ## [Example](examples)
 
 ```rust
-let expect = Body::from("pong");
 get("http://localhost:3000/ping")
   .expect_status(200) // <- Assert http status code
-  .expect_body(&expect) // <- Assert response body
+  .expect_body("pong") // <- Assert response body
   .end(); // <- Consume the test. Compile-time warnings are issued if forgotten.
 ```
 
@@ -44,18 +43,15 @@ let srv = TestServer::with_factory(|| {
   App::new().resource("/login", |r| r.method(Method::POST).with(login))
 });
 
-// Response body should match this
-let expect = TokenDto {
-  token: "...",
-};
-
 // POST request with json body
 post(&srv.url("/login"))
   .send_json(LoginDto {
     username: "...",
     password: "...",
   }).expect_status(200)
-  .expect_json(&expect)
+  .expect_json(TokenDto {
+    token: "...",
+  })
   .end();
 ```
 
@@ -74,9 +70,9 @@ delete(path: &str)
   .expect_status(status: u16)
   .expect_cookie(name: &str, value: &str)
   .expect_header(field: &str, value: &str)
-  .expect_json(json: &Serialize)
-  .expect_form(form: &Serialize)
-  .expect_body(body: &Body)
+  .expect_json(json: Serialize)
+  .expect_form(form: Serialize)
+  .expect_body(body: Into<Body>)
   .expect(f: FnMut(&ClientResponse))
   .end() -> ClientResponse
   .end_with(f: FnMut(&ClientResponse)) -> ClientResponse

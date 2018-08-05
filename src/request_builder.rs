@@ -88,15 +88,15 @@ impl<'a> Expect<'a> for GabiraRequestBuilder {
     }
   }
 
-  fn expect_body(mut self, body: &'a Body) -> GabiraExpectBuilder<'a> {
+  fn expect_body<B: Into<Body> + 'a>(mut self, body: B) -> GabiraExpectBuilder<'a> {
     GabiraExpectBuilder {
       req: self.req_builder.finish().unwrap(),
-      expectations: vec![create_body_assert(body)],
+      expectations: vec![create_body_assert(body.into())],
       runtime: Runtime::new().unwrap(),
     }
   }
 
-  fn expect_json<T: Serialize>(mut self, json: &'a T) -> GabiraExpectBuilder<'a> {
+  fn expect_json<T: Serialize>(mut self, json: T) -> GabiraExpectBuilder<'a> {
     GabiraExpectBuilder {
       req: self.req_builder.finish().unwrap(),
       expectations: vec![
@@ -107,7 +107,7 @@ impl<'a> Expect<'a> for GabiraRequestBuilder {
     }
   }
 
-  fn expect_form<T: Serialize>(mut self, form: &'a T) -> GabiraExpectBuilder<'a> {
+  fn expect_form<T: Serialize>(mut self, form: T) -> GabiraExpectBuilder<'a> {
     GabiraExpectBuilder {
       req: self.req_builder.finish().unwrap(),
       expectations: vec![

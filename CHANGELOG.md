@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- Improve ergonomics of `expect_body`. It no longer requires manual `Body::from`
+
 ## [0.1.1] - 2018-08-05
 
 - Expose request and expectation builder structs

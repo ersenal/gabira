@@ -10,13 +10,13 @@ pub trait Expect<'a> {
   fn expect_status(self, status: u16) -> GabiraExpectBuilder<'a>;
 
   #[must_use]
-  fn expect_body(self, body: &'a Body) -> GabiraExpectBuilder<'a>;
+  fn expect_body<B: Into<Body> + 'a>(self, body: B) -> GabiraExpectBuilder<'a>;
 
   #[must_use]
-  fn expect_json<T: Serialize>(self, json: &'a T) -> GabiraExpectBuilder<'a>;
+  fn expect_json<T: Serialize>(self, json: T) -> GabiraExpectBuilder<'a>;
 
   #[must_use]
-  fn expect_form<T: Serialize>(self, form: &'a T) -> GabiraExpectBuilder<'a>;
+  fn expect_form<T: Serialize>(self, form: T) -> GabiraExpectBuilder<'a>;
 
   #[must_use]
   fn expect_cookie(self, name: &'a str, value: &'a str) -> GabiraExpectBuilder<'a>;

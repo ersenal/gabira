@@ -76,12 +76,12 @@ impl<'a> Expect<'a> for GabiraExpectBuilder<'a> {
     self
   }
 
-  fn expect_body(mut self, body: &'a Body) -> GabiraExpectBuilder<'a> {
-    self.expectations.push(create_body_assert(body));
+  fn expect_body<B: Into<Body> + 'a>(mut self, body: B) -> GabiraExpectBuilder<'a> {
+    self.expectations.push(create_body_assert(body.into()));
     self
   }
 
-  fn expect_json<T: Serialize>(mut self, json: &'a T) -> GabiraExpectBuilder<'a> {
+  fn expect_json<T: Serialize>(mut self, json: T) -> GabiraExpectBuilder<'a> {
     self
       .expectations
       .push(create_header_assert("Content-Type", "application/json"));
@@ -89,7 +89,7 @@ impl<'a> Expect<'a> for GabiraExpectBuilder<'a> {
     self
   }
 
-  fn expect_form<T: Serialize>(mut self, form: &'a T) -> GabiraExpectBuilder<'a> {
+  fn expect_form<T: Serialize>(mut self, form: T) -> GabiraExpectBuilder<'a> {
     self.expectations.push(create_header_assert(
       "Content-Type",
       "application/x-www-form-urlencoded",
