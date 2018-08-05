@@ -21,4 +21,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - This CHANGELOG file.
 - README file.
 
-[unreleased]: https://github.com/ersenal/gabira/compare/v0.1.0...HEAD
+[unreleased]: https://github.com/ersenal/gabira/compare/v0.1.1...HEAD
