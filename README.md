@@ -91,7 +91,7 @@ delete(path: &str)
 
 ## Limitations
 
-Range of assertions are limited for the moment. See the [documentation](https://docs.rs/gabira/0.1.0/trait.Expect.html).
+Range of assertions are limited for the moment. See the [documentation](https://docs.rs/gabira/0.1.0/gabira/trait.Expect.html).
 
 ## License
 
