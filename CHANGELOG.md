@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Travis build status for the README
+
 ## [0.1.2] - 2018-08-05
 
 ### Changed
