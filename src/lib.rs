@@ -2,8 +2,8 @@ extern crate actix_web;
 
 mod assert;
 mod expect;
-mod expect_builder;
-mod request_builder;
+pub mod expect_builder;
+pub mod request_builder;
 
 pub use self::expect::Expect;
 use actix_web::client::ClientRequest;
