@@ -7,7 +7,7 @@ A rust library for testing HTTP servers. It focuses on ergonomics and brevity.
 
 Documentation:
 
-- [API reference for the latest release](https://docs.rs/gabira/0.1.0)
+- [API reference for the latest release](https://docs.rs/gabira/0.1.1)
 - [Changelog](CHANGELOG.md)
 
 ## Usage
@@ -91,7 +91,7 @@ delete(path: &str)
 
 ## Limitations
 
-Range of assertions are limited for the moment. See the [documentation](https://docs.rs/gabira/0.1.0/gabira/trait.Expect.html).
+Range of assertions are limited for the moment. See the [documentation](https://docs.rs/gabira/0.1.1/gabira/trait.Expect.html).
 
 ## License
 
