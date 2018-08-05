@@ -1,7 +1,6 @@
 # Gabira
 
 [![Latest version](https://img.shields.io/crates/v/gabira.svg)](https://crates.io/crates/gabira)
-
 [![License](https://img.shields.io/crates/l/gabira.svg)](https://github.com/ersenal/gabira#license)
 
 A rust library for testing HTTP servers. It focuses on ergonomics and brevity.
