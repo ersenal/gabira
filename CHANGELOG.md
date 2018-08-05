@@ -9,11 +9,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.1.2] - 2018-08-05
 
+### Changed
+
 - Improve ergonomics of `expect_body`. It no longer requires manual `Body::from`
 
 ## [0.1.1] - 2018-08-05
 
+### Changed
+
 - Expose request and expectation builder structs
+
+### Fixed
+
 - Fix Cargo.toml doc link
 
 ## [0.1.0] - 2018-08-05
