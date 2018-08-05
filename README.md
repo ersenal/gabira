@@ -1,5 +1,6 @@
 # Gabira
 
+[![Build Status](https://travis-ci.org/ersenal/gabira.svg?branch=master)](https://travis-ci.org/ersenal/gabira)
 [![Latest version](https://img.shields.io/crates/v/gabira.svg)](https://crates.io/crates/gabira)
 [![License](https://img.shields.io/crates/l/gabira.svg)](https://github.com/ersenal/gabira#license)
 
