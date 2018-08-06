@@ -17,13 +17,13 @@ pub struct GabiraRequestBuilder {
 }
 
 impl<'a> GabiraRequestBuilder {
-  #[must_use]
+  #[must_use = "request builder does nothing unless consumed by an expectation builder"]
   pub fn set_header(mut self, field: &str, value: &str) -> GabiraRequestBuilder {
     self.req_builder.set_header(field, value);
     self
   }
 
-  #[must_use]
+  #[must_use = "request builder does nothing unless consumed by an expectation builder"]
   pub fn set_cookie(mut self, name: &str, value: &str) -> GabiraRequestBuilder {
     self.req_builder.cookie(Cookie::new(
       Cow::Borrowed(name).into_owned(),
@@ -32,7 +32,7 @@ impl<'a> GabiraRequestBuilder {
     self
   }
 
-  #[must_use]
+  #[must_use = "expectation builder does nothing unless consumed"]
   pub fn send<B: Into<Body>>(mut self, body: B) -> GabiraExpectBuilder<'a> {
     GabiraExpectBuilder {
       req: self.req_builder.body(body).unwrap(),
@@ -41,7 +41,7 @@ impl<'a> GabiraRequestBuilder {
     }
   }
 
-  #[must_use]
+  #[must_use = "expectation builder does nothing unless consumed"]
   pub fn send_json<T: Serialize>(mut self, json: T) -> GabiraExpectBuilder<'a> {
     GabiraExpectBuilder {
       req: self.req_builder.json(json).unwrap(),
@@ -50,7 +50,7 @@ impl<'a> GabiraRequestBuilder {
     }
   }
 
-  #[must_use]
+  #[must_use = "expectation builder does nothing unless consumed"]
   pub fn send_form<T: Serialize>(mut self, form: T) -> GabiraExpectBuilder<'a> {
     GabiraExpectBuilder {
       req: self.req_builder.form(form).unwrap(),

@@ -20,47 +20,47 @@ fn req(path: &str, method: http::Method) -> GabiraRequestBuilder {
   }
 }
 
-#[must_use]
+#[must_use = "request builder does nothing unless consumed by an expectation builder"]
 pub fn get(path: &str) -> GabiraRequestBuilder {
   req(path, http::Method::GET)
 }
 
-#[must_use]
+#[must_use = "request builder does nothing unless consumed by an expectation builder"]
 pub fn head(path: &str) -> GabiraRequestBuilder {
   req(path, http::Method::HEAD)
 }
 
-#[must_use]
+#[must_use = "request builder does nothing unless consumed by an expectation builder"]
 pub fn post(path: &str) -> GabiraRequestBuilder {
   req(path, http::Method::POST)
 }
 
-#[must_use]
+#[must_use = "request builder does nothing unless consumed by an expectation builder"]
 pub fn put(path: &str) -> GabiraRequestBuilder {
   req(path, http::Method::PUT)
 }
 
-#[must_use]
+#[must_use = "request builder does nothing unless consumed by an expectation builder"]
 pub fn delete(path: &str) -> GabiraRequestBuilder {
   req(path, http::Method::DELETE)
 }
 
-#[must_use]
+#[must_use = "request builder does nothing unless consumed by an expectation builder"]
 pub fn trace(path: &str) -> GabiraRequestBuilder {
   req(path, http::Method::TRACE)
 }
 
-#[must_use]
+#[must_use = "request builder does nothing unless consumed by an expectation builder"]
 pub fn options(path: &str) -> GabiraRequestBuilder {
   req(path, http::Method::OPTIONS)
 }
 
-#[must_use]
+#[must_use = "request builder does nothing unless consumed by an expectation builder"]
 pub fn connect(path: &str) -> GabiraRequestBuilder {
   req(path, http::Method::CONNECT)
 }
 
-#[must_use]
+#[must_use = "request builder does nothing unless consumed by an expectation builder"]
 pub fn patch(path: &str) -> GabiraRequestBuilder {
   req(path, http::Method::PATCH)
 }
