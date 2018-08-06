@@ -1,9 +1,11 @@
+extern crate ansi_term;
 extern crate futures;
 extern crate owning_ref;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_urlencoded;
 
+use self::ansi_term::Colour::Red;
 use self::owning_ref::BoxRef;
 use self::serde::Serialize;
 use actix_web::client::ClientResponse;
@@ -23,7 +25,12 @@ pub fn create_body_assert<'a>(body: Body) -> Box<FnMut(&ClientResponse) + 'a> {
 
 pub fn create_cookie_assert<'a>(name: &'a str, value: &'a str) -> Box<FnMut(&ClientResponse) + 'a> {
   Box::new(move |r| {
-    assert!(r.cookie(name).is_some(), "cookie {} does not exist", name);
+    assert!(
+      r.cookie(name).is_some(),
+      "cookie {} does not exist in\n{:?}\n",
+      Red.paint(name),
+      r
+    );
     assert_eq!(r.cookie(name).unwrap().value(), value);
   })
 }
@@ -45,12 +52,14 @@ pub fn create_header_assert<'a>(
   value: &'a str,
 ) -> Box<FnMut(&ClientResponse) + 'a> {
   Box::new(move |r| {
+    let headers = r.headers();
     assert!(
-      r.headers().contains_key(field),
-      "header {} does not exist",
-      field
+      headers.contains_key(field),
+      "header {} does not exist in\n{:?}\n",
+      Red.paint(field),
+      r
     );
-    assert_eq!(r.headers()[field], value);
+    assert_eq!(headers[field], value);
   })
 }
 
@@ -61,7 +70,7 @@ fn assert_body(r: &ClientResponse, body: &Body) {
   match body {
     Body::Binary(body) => match body {
       Binary::Bytes(bytes) => assert_eq!(left, bytes),
-      Binary::Slice(slice) => assert_eq!(&left, slice),
+      Binary::Slice(slice) => assert_eq!(left, slice),
       _ => unimplemented!("unsupported binary type"),
     },
     _ => unimplemented!("unsupported body type"),
