@@ -6,7 +6,7 @@ extern crate serde_derive;
 
 use actix_web::http::Method;
 use actix_web::test::TestServer;
-use actix_web::{App, HttpMessage, HttpRequest, HttpResponse, Json};
+use actix_web::{App, Form, HttpMessage, HttpRequest, HttpResponse, Json};
 use gabira::*;
 
 #[derive(Serialize, Deserialize)]
@@ -52,6 +52,12 @@ fn setup() -> TestServer {
             resp.cookie(cookie.clone());
           }
           resp
+        })
+      }).resource("/form", |r| {
+        r.method(Method::POST).with(|params: Form<LoginDto>| {
+          Json(TokenDto {
+            token: format!("{}{}", params.username, params.password),
+          })
         })
       })
   })
@@ -174,5 +180,17 @@ fn expect_json_panic() {
     }).expect_status(200)
     .expect_json(TokenDto {
       token: "hello world".to_string(),
+    }).end();
+}
+
+#[test]
+fn send_form() {
+  let srv = setup();
+  post(&srv.url("/form"))
+    .send_form(LoginDto {
+      username: "form".to_string(),
+      password: "test".to_string(),
+    }).expect_json(TokenDto {
+      token: "formtest".to_string(),
     }).end();
 }
